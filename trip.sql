@@ -24,3 +24,16 @@ SELECT city, COUNT(city) AS "Количество" FROM trip
 GROUP BY city
 ORDER BY Количество DESC
 LIMIT 2
+
+--5. Вывести информацию о командировках во все города кроме Москвы и Санкт-Петербурга (фамилии и инициалы сотрудников, город ,  длительность командировки в днях, при этом первый и последний день относится к периоду командировки). 
+
+SELECT name, city, DATEDIFF(date_last, date_first) + 1 AS "Длительность"
+FROM trip
+WHERE city NOT LIKE "Москва" AND city NOT LIKE "Санкт-Петербург"
+ORDER BY Длительность DESC, city DESC
+
+--6. Вывести информацию о командировках сотрудника(ов), которые были самыми короткими по времени. 
+
+SELECT name, city, date_first, date_last 
+FROM trip
+WHERE DATEDIFF(date_last, date_first) = (SELECT MIN(DATEDIFF(date_last, date_first)) FROM trip)
