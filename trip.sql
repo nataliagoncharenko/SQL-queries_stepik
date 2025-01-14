@@ -37,3 +37,18 @@ ORDER BY Длительность DESC, city DESC
 SELECT name, city, date_first, date_last 
 FROM trip
 WHERE DATEDIFF(date_last, date_first) = (SELECT MIN(DATEDIFF(date_last, date_first)) FROM trip)
+
+--7. Вывести информацию о командировках, начало и конец которых относятся к одному месяцу (год может быть любой)
+
+SELECT name, city, date_first, date_last
+FROM trip 
+WHERE MONTH(date_first) = MONTH(date_last)
+ORDER BY city ASC, name ASC
+
+
+--8. Вывести название месяца и количество командировок для каждого месяца. 
+
+SELECT MONTHNAME(date_first) AS "Месяц", COUNT(date_first) AS "Количество" FROM trip 
+GROUP BY MONTHNAME(date_first)
+ORDER BY COUNT(date_first) DESC, MONTHNAME(date_first) ASC
+
