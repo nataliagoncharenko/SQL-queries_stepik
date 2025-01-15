@@ -52,3 +52,11 @@ SELECT MONTHNAME(date_first) AS "Месяц", COUNT(date_first) AS "Количе
 GROUP BY MONTHNAME(date_first)
 ORDER BY COUNT(date_first) DESC, MONTHNAME(date_first) ASC
 
+--9. Вывести сумму суточных (произведение количества дней командировки и размера суточных) для командировок, первый день которых пришелся на февраль или март 2020 года. 
+
+SELECT name, city, date_first, (DATEDIFF(date_last, date_first) + 1) * per_diem AS "Сумма"
+FROM trip 
+WHERE MONTH(date_first) = 2 OR MONTH(date_first) = 3
+ORDER BY name ASC, Сумма DESC
+
+
