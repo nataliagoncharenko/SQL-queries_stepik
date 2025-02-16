@@ -21,3 +21,11 @@ VALUES ('Баранов П.Е.', 'Р523ВТ', 'Превышение скорос
 UPDATE fine f, traffic_violation tv
 SET f.sum_fine = tv.sum_fine
 WHERE f.sum_fine IS NULL AND f.violation = tv.violation;
+
+--4. Вывести фамилию, номер машины и нарушение только для тех водителей, которые на одной машине нарушили одно и то же правило   два и более раз. 
+
+SELECT name, number_plate, violation
+FROM fine
+GROUP BY name, number_plate, violation
+HAVING COUNT(name) >= 2 AND COUNT(number_plate) >=2 AND COUNT(violation) >=2 
+ORDER BY name ASC, number_plate ASC, violation ASC
